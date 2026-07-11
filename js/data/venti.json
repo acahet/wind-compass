@@ -1,0 +1,10 @@
+[
+  { "key": "tramontana", "deg": 0,   "italiano": "Tramontana",           "dialettale": "" },
+  { "key": "grecale",    "deg": 45,  "italiano": "Grecale",              "dialettale": "" },
+  { "key": "levante",    "deg": 90,  "italiano": "Levante",              "dialettale": "" },
+  { "key": "scirocco",   "deg": 135, "italiano": "Scirocco",             "dialettale": "" },
+  { "key": "ostro",      "deg": 180, "italiano": "Ostro (Mezzogiorno)",  "dialettale": "" },
+  { "key": "libeccio",   "deg": 225, "italiano": "Libeccio",             "dialettale": "" },
+  { "key": "ponente",    "deg": 270, "italiano": "Ponente",              "dialettale": "" },
+  { "key": "maestrale",  "deg": 315, "italiano": "Maestrale",            "dialettale": "" }
+]

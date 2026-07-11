@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Bussola dei Venti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="veil"></div>
+
+<header>
+  <div class="eyebrow">Rosa dei Venti · Mar Ionio</div>
+  <h1>Bussola dei Venti</h1>
+  <p class="sub">che vento tira, oggi, da dove sei</p>
+</header>
+
+<div class="status" id="status">Sto cercando la tua posizione…</div>
+
+<label class="lang-toggle">
+  <span class="lang-label" id="langLeft">Italiano</span>
+  <span class="switch">
+    <input type="checkbox" id="langSwitch">
+    <span class="slider"></span>
+  </span>
+  <span class="lang-label" id="langRight">Dialetto Manduria</span>
+</label>
+
+<div class="card">
+  <svg class="rose" viewBox="0 0 300 300" id="roseSvg">
+    <circle cx="150" cy="150" r="144" fill="none" stroke="var(--ottone)" stroke-width="1"/>
+    <circle cx="150" cy="150" r="118" fill="none" stroke="var(--ottone)" stroke-opacity="0.5" stroke-width="0.75"/>
+    <g id="ticks" stroke="#8A6F42" stroke-width="1"></g>
+    <g id="rhumb" fill="none" stroke="#9C7C48" stroke-width="1" stroke-opacity="0.55"></g>
+    <g id="labels" font-family="Cinzel, serif" font-size="11" fill="#3A2E18" font-weight="700" text-anchor="middle"></g>
+    <g id="needle" transform="rotate(0 150 150)">
+      <polygon points="150,26 158,150 150,140 142,150" fill="var(--terracotta)"/>
+      <polygon points="150,274 158,150 150,160 142,150" fill="#5A4A2E"/>
+      <circle cx="150" cy="150" r="7" fill="var(--ottone)" stroke="#3A2E18" stroke-width="1.5"/>
+    </g>
+  </svg>
+  <div class="center-readout">
+    <div class="wind-name" id="windName">—</div>
+    <div class="wind-deg" id="windDeg">&nbsp;</div>
+    <div class="wind-speed" id="windSpeed">&nbsp;</div>
+  </div>
+</div>
+
+<div class="facts" id="facts"></div>
+<button class="refresh" id="refreshBtn">Aggiorna vento</button>
+
+<footer>
+  Direzione del vento reale via Open-Meteo · nomi secondo la rosa dei venti mediterranea a 8 punte.
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
