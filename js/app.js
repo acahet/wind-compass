@@ -11,7 +11,7 @@ async function loadWinds() {
     const res = await fetch('js/data/venti.json');
     WINDS = await res.json();
   } catch (e) {
-    console.error('Could not load js/data/venti.json — check that the file exists and, if testing locally, that you are serving the project over http(s) rather than opening index.html directly.', e);
+    console.error('Could not load js/data/venti.json — check that the file exists and, if testing locally, that you are serving the project over http(s) rather than opening index.html directly.');
     WINDS = [];
   }
 }
@@ -128,6 +128,19 @@ async function fetchWind(lat, lon, place) {
   }
 }
 
+// --- Reverse geocoding via BigDataCloud ---
+async function reverseGeocode(lat, lon) {
+  try {
+    const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=it`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.city || data.locality || null;
+  } catch (e) {
+    console.error('Reverse geocoding failed:', e);
+    return null;
+  }
+}
+
 function locate() {
   statusEl.textContent = "Sto cercando la tua posizione…";
   statusEl.classList.remove('error');
@@ -138,16 +151,27 @@ function locate() {
     return;
   }
   navigator.geolocation.getCurrentPosition(
-    pos => {
+    async pos => {
       lastCoords = { lat: pos.coords.latitude, lon: pos.coords.longitude };
-      fetchWind(lastCoords.lat, lastCoords.lon, "posizione attuale");
+      const placeName = await reverseGeocode(lastCoords.lat, lastCoords.lon);
+      fetchWind(lastCoords.lat, lastCoords.lon, placeName || "posizione attuale");
     },
-    () => {
-      statusEl.textContent = "Posizione non concessa — uso Manduria come riferimento.";
+    err => {
+      let errorMsg = "Posizione non concessa — uso Manduria come riferimento.";
+      
+      if (err.code === 1) {
+        errorMsg = "permesso negato — controlla i permessi di posizione del browser per questo sito. Uso Manduria come riferimento.";
+      } else if (err.code === 2) {
+        errorMsg = "posizione non disponibile — GPS/rete non riescono a localizzarti. Uso Manduria come riferimento.";
+      } else if (err.code === 3) {
+        errorMsg = "richiesta scaduta — nessuna risposta entro il tempo limite. Uso Manduria come riferimento.";
+      }
+      
+      statusEl.textContent = errorMsg;
       lastCoords = DEFAULT_COORDS;
       fetchWind(lastCoords.lat, lastCoords.lon, "Manduria (predefinito)");
     },
-    { enableHighAccuracy: false, timeout: 8000 }
+    { enableHighAccuracy: false, timeout: 12000, maximumAge: 0 }
   );
 }
 
