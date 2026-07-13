@@ -72,6 +72,9 @@ const needle = document.getElementById('needle');
 const windNameEl = document.getElementById('windName');
 const windDegEl = document.getElementById('windDeg');
 const windSpeedEl = document.getElementById('windSpeed');
+const topWindNameEl = document.getElementById('topWindName');
+const topWindDegEl = document.getElementById('topWindDeg');
+const topWindSpeedEl = document.getElementById('topWindSpeed');
 const factsEl = document.getElementById('facts');
 const langSwitch = document.getElementById('langSwitch');
 const langLeft = document.getElementById('langLeft');
@@ -102,10 +105,14 @@ function renderWind(deg, speedKmh, place) {
     ? `${w.italiano} · ${Math.round(deg)}°`
     : `${Math.round(deg)}°`;
   windSpeedEl.textContent = `${Math.round(speedKmh)} km/h`;
+  const topName = (useDialetto && hasDialetto) ? w.dialettale : w.italiano;
+  topWindNameEl.textContent = topName;
+  topWindDegEl.textContent = `${Math.round(deg)}°`;
+  topWindSpeedEl.textContent = `${Math.round(speedKmh)} km/h`;
   setNeedle(deg);
   factsEl.innerHTML = (place ? `<span><b>Luogo</b> ${place}</span>` : "") +
     (hasDialetto
-      ? `<span><b>Manduria</b> ${w.dialettale}</span>`
+      ? `<span><b>Dialetto</b> ${w.dialettale}</span>`
       : `<span style="opacity:.6">nessun termine dialettale in venti.json per questo vento</span>`);
 }
 
