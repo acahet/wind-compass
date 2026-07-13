@@ -117,6 +117,18 @@ h1{
 .switch input:checked + .slider{ background:rgba(179,85,46,0.45); border-color:var(--terracotta); }
 .switch input:checked + .slider::before{ transform:translateX(20px); background:var(--terracotta); }
 
+.top-readout{ text-align:center; margin-bottom:18px; }
+.top-wind-name{
+  font-family:'Cinzel', serif; font-weight:700;
+  font-size:clamp(26px, 7vw, 38px); color:var(--avorio);
+  letter-spacing:0.02em; text-shadow:0 2px 14px rgba(0,0,0,0.45); line-height:1.15;
+}
+.top-wind-stats{
+  font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--ottone-light);
+  margin-top:4px; display:flex; gap:8px; justify-content:center; align-items:center;
+}
+.top-wind-stats .dot{ color:#5E7180; }
+
 .card{
   position:relative;
   width:min(88vw, 380px);
